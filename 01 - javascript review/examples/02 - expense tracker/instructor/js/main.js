@@ -80,3 +80,18 @@ document
             }
         }
     );
+
+// 6. implement live search filtration (as-you-type)
+document
+    .getElementById("searchbox")
+    .addEventListener(
+        "input",
+        function (event) {
+            const searchTerm = event.target.value.toLowerCase();  // capture the value
+            const filteredExpenses = theExpenses.filter(
+                // filter: apply a conditional expression to every element & return the ones that evaluate true
+                (expense) => expense.title.toLowerCase().includes(searchTerm)
+            );
+            renderExpenses(filteredExpenses);
+        }
+    );
