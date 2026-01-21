@@ -65,7 +65,7 @@ document
                 }
             } else {
                 // non-obvious: if the text isn't "Add Expense" (beacuse I'll change it when editing), do this other behaviour (for editing)
-                const expenseId = parseInt(document.getElementById("expense-id"))  // reading from hidden input
+                const expenseId = parseInt(document.getElementById("expense-id").value);  // reading from hidden input
                 const expenseToEdit = theExpenses.find(
                     (expense) => expense.id === expenseId
                 );
@@ -134,7 +134,6 @@ expenseContainer.addEventListener(
                 document.getElementById("expense-id").value = expenseToEdit.id
                 // and for my last trick, toggling the text of the button to toggle creating vs. editing in step5
                 document.getElementById("submiter").innerText = "Save Changes"
-                console.log(expenseToEdit)
             }
         }
         
