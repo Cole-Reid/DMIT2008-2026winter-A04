@@ -15,3 +15,29 @@ const PubSub = {
     }
   }
 };
+
+// Step 2: Define the `expenses` Object
+const expenses = {
+    list: [],
+    addExpense(...exp) {
+        this.list.push(...exp);
+        this.publish("update", this.list);
+  },
+
+    filterExpense(input) {
+        const result = this.list.filter(exp => {
+        if (
+            exp.title.toLowerCase().includes(input.toLowerCase()) ||
+            exp.category.toLowerCase().includes(input.toLowerCase()) ||
+            exp.date.toLowerCase().includes(input.toLowerCase()) ||
+            exp.amount.toString().toLowerCase().includes(input.toLowerCase())) {
+            return true;
+        }
+    });
+    this.publish("update", result);
+  },
+    clear() {
+        this.list = [];
+        this.publish("update", this.list);
+  }
+};
