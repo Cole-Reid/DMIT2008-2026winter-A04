@@ -1,5 +1,5 @@
 class ExpenseCard extends HTMLElement {
-  constructor() {
+  constructor() {  // is called when an instance of this class/component is created
     super();
     this.attachShadow({ mode: "open" });
 
@@ -70,7 +70,8 @@ class ExpenseCard extends HTMLElement {
         this.shadowRoot.appendChild(style);
   }
 
-  connectedCallback() {
+  connectedCallback() { // is called when component instance is attached to DOM
+    // populating default values if any are missing
     this.shadowRoot.querySelector(".title").textContent =
       this.getAttribute("title") || "No title";
     this.shadowRoot.querySelector(".category").textContent =
@@ -80,6 +81,54 @@ class ExpenseCard extends HTMLElement {
     this.shadowRoot.querySelector(".amount").textContent =
       "$" + parseFloat(this.getAttribute("amount") || 0).toFixed(2);
     this.shadowRoot.querySelector(".card").setAttribute("id", Number(this.getAttribute("id")) || new Date().getTime());
+
+    // We'll listen for .edit-btn and .delete-btn being clicked, and fire custom events.
+    // I recommend adding event listeners only when the component attaches to the DOM, *rather than* in the constructor.
+
+    // 1. delete button clicked event
+    this.shadowRoot.querySelector('.delete-btn').addEventListener(
+      "click",
+      () => { // callback function is an anonymous arrow function
+        const deleteEvent = new CustomEvent(
+          "expense-delete",  // first term:  event's name
+          {                  // second term: event info
+            detail: { id: this.id },   // detail: the payload/data/message that is passed with the event
+            bubbles: true,             // can propagate upwards through DOM, rather than direct sender/receiver info
+            composed: true,             // event can cross shadow DOM boundary
+          }
+        );
+
+        this.dispatchEvent(deleteEvent);
+        // console.log(deleteEvent);
+      }
+    )
+
+    // 2. edit button clicked event
+    // You can also dispatch an event you're creating on the fly, but then you won't be able to inspect it from this end.
+    this.shadowRoot.querySelector(".edit-btn").addEventListener(
+      "click",
+      () => {
+        this.dispatchEvent(
+          new CustomEvent(
+            "expense-edit",
+            {
+              // I'm going to want to send more than just the ID in the payload for editing an existing item.
+              // I *should* be identifying the actual data item from the data container, rather than extracting values from DOM,
+              //   but this keep things simpler.
+              detail: {
+                id: this.id,
+                title: this.getAttribute("title"),
+                category: this.getAttribute("category").toLowerCase(), // see: index.html, select option values are lowercase
+                date: this.getAttribute("date"),
+                amount: this.getAttribute("amount"),
+              },  
+              bubbles: true,
+              composed: true,
+            }
+          )
+        );
+      }
+    );
   }
 }
 
