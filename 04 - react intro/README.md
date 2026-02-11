@@ -6,7 +6,9 @@
 
 > Once you find a source you like, stick with it!
 
-## Lesson 7: Intro to React + front-end libraries/frameworks
+---
+
+## A: Intro to React + front-end libraries/frameworks
 
 - [Learning JavaScript Design Patterns, 2nd Edition – Chapter 12: An Introduction to React](https://learning.oreilly.com/library/view/learning-javascript-design/9781098139865/ch12.html#introduction-to-react)
 
@@ -17,7 +19,6 @@
 
 ## Supplementary/Optional Documentation:
 
-> 
 
 - [React docs](https://react.dev/reference/react)
 - [MDN – Getting Started with React](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/React_getting_started)
