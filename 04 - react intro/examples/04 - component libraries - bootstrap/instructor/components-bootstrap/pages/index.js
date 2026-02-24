@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button'
 
 
 // our components
+import ComponentLibraries from "./components/ComponentLibraries"
 
 export default function Home() {
   return (
@@ -27,6 +28,7 @@ export default function Home() {
             <Row>
               <Col>
                 <h4>Available Component Libraries:</h4>
+                <ComponentLibraries />
               </Col>
               <Col>
                 <Button>example button</Button>
