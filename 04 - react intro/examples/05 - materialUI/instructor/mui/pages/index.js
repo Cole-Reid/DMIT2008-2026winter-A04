@@ -1,4 +1,12 @@
+// nextjs components
 import Head from "next/head";
+
+// MUI components
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+
+import Typography from '@mui/material/Typography';
+
 
 export default function Home() {
   return (
@@ -11,7 +19,14 @@ export default function Home() {
       </Head>
 
       <main>
+        <Container maxWidth="md">
+          <Box sx={{ my: 4 }}>
+            <Typography variant="h1">I'm yelling at you in lowercase.</Typography>
+            <Typography variant="h3">MUI (allegedly) looks good.</Typography>
+            <Typography variant="p">Bottom text.</Typography>
 
+          </Box>
+        </Container>
       </main>
 
     </>
