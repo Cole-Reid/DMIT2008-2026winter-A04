@@ -1,9 +1,5 @@
 import Head from "next/head";
 
-// materialUI components
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-
 export default function Home() {
   return (
     <>
@@ -13,14 +9,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <main>
-        <Container maxWidth="sm">
-          <Box sx={{ my: 4 }}>
-            example text
-            {/* we'll add some content here.*/}
-          </Box>
-        </Container>
+
       </main>
+
     </>
   );
 }
