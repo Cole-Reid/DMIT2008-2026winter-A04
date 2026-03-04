@@ -122,11 +122,11 @@ export default function Home() {
             </Grid>
           </form>
           <List sx={{width: `100%`}}>
-          {movies.length === 0 &&
+          {
             <ListItem>
               <ListItemText>
                <Typography variant="p" component="div">
-                No results please search again.
+                { movies.length === 0 ? "No matches found." : `Found ${movies.length} results:` }
                </Typography>
               </ListItemText>
             </ListItem>
