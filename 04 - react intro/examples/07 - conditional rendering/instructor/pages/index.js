@@ -1,9 +1,15 @@
+// react hooks
+import { useState } from 'react';
+
+// data
 import { MOVIE_LIST } from '../utils/movies'
 
+// nextjs
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
+// MUI components
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -16,6 +22,49 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
 export default function Home() {
+
+  const [search, setSearch] = useState("")
+  const [year, setYear] = useState("")
+
+  const [movies, setMovies] = useState(MOVIE_LIST)
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    filterMovies();
+    console.log(search);
+    console.log(year);
+  }
+
+  const filterMovies = () => {
+
+    // copy the movie list so we don't mutate complete original data
+    const filteredMovies = [...MOVIE_LIST]
+
+    // first, deal with search text input
+    if (search.trim()) {
+      // filter the array for titles which include the search as a substring
+      filteredMovies = filteredMovies.filter(
+        (movie) => {
+          return movie.name.toLowerCase().includes(
+            search.trim().toLowerCase()
+          )
+        }
+      )
+    }
+
+    // then, deal with year
+    if (year.trim()) {
+      filteredMovies = filteredMovies.filter(
+        (movie) => {
+          return movie.year === parseInt(year.trim())
+        }
+      )
+    }
+
+  setMovies(filteredMovies)
+
+  }
+
   return (
     <div>
       <Head>
@@ -33,15 +82,22 @@ export default function Home() {
           <Typography variant="h2" component="h2" style={{textAlign: "center"}}>
             Movies
           </Typography>
-          <form style={{width: '100%'}}>
+          <form
+            style={{width: '100%'}}
+            onSubmit={handleSubmit}
+          >
             <Grid container spacing={2}>
+              {/* This is the old MUI Grid format, because we're pinning package versions in this starter.
+                  In the new format, you would simply e.g. 'size={6}'' rather than 'item xs={6}'.
+               */}
               <Grid item xs={6}>
                 <TextField
                   id="search-field"
                   label="search..."
                   variant="standard"
                   sx={{width: '100%'}}
-                  
+                  onChange={(e) => {setSearch(event.target.value)}}
+                  value={search}
                 />
               </Grid>
               <Grid item xs={4}>
@@ -50,7 +106,8 @@ export default function Home() {
                   label="year"
                   variant="standard"
                   sx={{width: '100%'}}
-                 
+                  onChange={(e) => {setYear(event.target.value)}}
+                  value={year}
                 />
               </Grid>
               <Grid item xs={2}>
@@ -65,7 +122,16 @@ export default function Home() {
             </Grid>
           </form>
           <List sx={{width: `100%`}}>
-          { MOVIE_LIST.map((movieData, index)=> {
+          {
+            <ListItem>
+              <ListItemText>
+               <Typography variant="p" component="div">
+                { movies.length === 0 ? "No matches found." : `Found ${movies.length} results:` }
+               </Typography>
+              </ListItemText>
+            </ListItem>
+          }
+          { movies.map((movieData, index)=> {
               return <ListItem key={index}>
                 <ListItemText>
                   <Typography variant="p" component="div">

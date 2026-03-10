@@ -4,30 +4,21 @@
 
 Interaction with the backend is really important, and you do that via a rest api. The backend is where you'll be storing all of the information and doing process such as notification, creating a search index.
 
-We're going to create the frontend quote generator here and we're going to pick from one of the [quote rest apis here](https://github.com/public-apis/public-apis#personality).
 
-The backend we're going to use today is [quotable (docs here)](https://github.com/lukePeavey/quotable).
-To do so.
+The backend we're going to use today is [DummyJSON's quotes endpoint](https://dummyjson.com/quotes).
 
 We're also going to use a rest api client to observe what's going on in the rest request.
 
 # Steps
 
 1. Open your rest api client and get a random quote, so we can see the payload.
-- make a get request to `https://api.quotable.io/random` as per the documentation.
+- make a get request to `https://dummyjson.com/quotes/random` as per the documentation.
 You'll see that the response body returns something like this.
 ```json
 {
-    "_id": "GQ8whOuPGD8Z",
-    "tags": [
-        "famous-quotes"
-    ],
-    "content": "The beginning of wisdom is found in doubting; by doubting we come to the question, and by seeking we may come upon the truth.",
-    "author": "Peter Abelard",
-    "authorSlug": "peter-abelard",
-    "length": 125,
-    "dateAdded": "2019-10-03",
-    "dateModified": "2019-10-03"
+  "id": 533,
+  "quote": "My toughest opponent has always been me.",
+  "author": "Muhammad Ali"
 }
 ```
 2. Navigate in our `rest-fundamentals-example` and run the project.
@@ -96,12 +87,12 @@ const RANDOM_QUOTE_URL = 'https://api.quotable.io/random'
         return response.json()
       }).then((data)=> {
         setQuoteData({
-          quote: data.content,
+          quote: data.quote,
           author: data.author
         })
       })
   }
 ```
-Note: you might be thinking "how did we find the `data.content` and `data.author`?", we found this from looking at the documentation and using our REST API client in step 1.
+Note: you might be thinking "how did we find the `data.q` and `data.a`?", we found this from looking at the documentation and using our REST API client in step 1.
 
 Observe now that we have a project that fetches new quotes whenever we click the "get new quote" button.
