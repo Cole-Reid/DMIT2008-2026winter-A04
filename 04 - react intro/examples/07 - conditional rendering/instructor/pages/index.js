@@ -28,17 +28,39 @@ export default function Home() {
 
   const [movies, setMovies] = useState(MOVIE_LIST)
 
+  // we'll set up a basic example of implementing an error message
+  const [errorMsg, setErrorMsg] = useState("")
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    validateSearch();
     filterMovies();
     console.log(search);
     console.log(year);
   }
 
+  const validateSearch = () => {
+    // I want to mostly check that the year is a 4-digit number (we're working with movies).
+
+    if (year.trim().length === 0) {
+      // this means no year was input, so there cannot be any issues with that input
+      setErrorMsg("")
+      return
+    }
+
+    if (!isValidYear(year)) {
+      setErrorMsg(`${year} is not a valid year.`)
+    }
+  }
+
+  const isValidYear = (year) => {
+    return !isNaN(year) && year.trim().length === 4
+  }
+
   const filterMovies = () => {
 
     // copy the movie list so we don't mutate complete original data
-    const filteredMovies = [...MOVIE_LIST]
+    let filteredMovies = [...MOVIE_LIST]
 
     // first, deal with search text input
     if (search.trim()) {
@@ -117,20 +139,26 @@ export default function Home() {
                 >Filter</Button>
               </Grid>
               <Grid item xs={10}>
-                {/* Add the error message here*/}
+                { errorMsg &&
+                  <Alert severity="error">{errorMsg}</Alert>
+                }
               </Grid>
             </Grid>
           </form>
           <List sx={{width: `100%`}}>
-          {
-            <ListItem>
-              <ListItemText>
-               <Typography variant="p" component="div">
-                { movies.length === 0 ? "No matches found." : `Found ${movies.length} results:` }
-               </Typography>
-              </ListItemText>
-            </ListItem>
-          }
+
+          <ListItem>
+            <ListItemText>
+             <Typography variant="p" component="div">
+              { movies.length === 0 ?
+                "No matches found."
+                :
+                `Results found: ${movies.length}`
+              }
+             </Typography>
+            </ListItemText>
+          </ListItem>
+
           { movies.map((movieData, index)=> {
               return <ListItem key={index}>
                 <ListItemText>
