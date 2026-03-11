@@ -8,25 +8,28 @@ import Typography from '@mui/material/Typography';
 
 
 export default function ReviewCard({ rating, title, comment }) {
-  <Card sx={{ mt: 2 }}>
-    <CardHeader
-      avatar={
-        <Avatar sx={{ bgcolor: 'blue' }} aria-label="recipe">
-          {rating}
-        </Avatar>
-      }
-      
-      title={
+  
+  return (
+    <Card sx={{ mt: 2 }}>
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: 'blue' }} aria-label="recipe">
+            {rating}
+          </Avatar>
+        }
+        
+        title={
+          <Typography variant="body2" color="text.secondary">
+            {title}
+          </Typography>
+        }
+        
+      />
+      <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {title}
+          {comment}
         </Typography>
-      }
-      
-    />
-    <CardContent>
-      <Typography variant="body2" color="text.secondary">
-        {comment}
-      </Typography>
-    </CardContent>
-  </Card>
+      </CardContent>
+    </Card>
+  )
 }

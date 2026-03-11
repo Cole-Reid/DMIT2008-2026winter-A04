@@ -1,3 +1,6 @@
+// React hooks
+import { useState } from 'react';
+
 // nextjs components
 import Head from 'next/head'
 import Image from 'next/image'
@@ -28,11 +31,12 @@ import ReviewCard from './components/ReviewCard';
 
 
 export default function Home() {
-  const MOCK_ADAPTATION_RATING = [{
-    'title': 'Fight Club',
-    'comment': 'Great movie and book',
-    'rating': 10
-  }]
+
+  const [reviews, setReviews] = useState([])
+
+  const loadAllReviews = () => {
+    console.log('load reviews clicked!')
+  }
 
   return (
     <div>
@@ -48,9 +52,13 @@ export default function Home() {
           </Typography>
         </Toolbar>
       </AppBar>
+
       <main>
+
         <Container maxWidth="md">
+
           <form>
+
             <Grid container spacing={3}>
               <Grid item xs={12} sm={12}>
                 <TextField
@@ -61,6 +69,7 @@ export default function Home() {
                   variant="standard"
                 />
               </Grid>
+
               <Grid item xs={12} sm={12}>
                 <TextField
                   id="review-comments"
@@ -70,6 +79,7 @@ export default function Home() {
                   variant="standard"
                 />
               </Grid>
+
               <Grid item xs={12} sm={12}>
                 <FormControl>
                   <FormLabel id="adaptation-rating">Rating</FormLabel>
@@ -91,6 +101,7 @@ export default function Home() {
                   </RadioGroup>
                </FormControl>
               </Grid>
+
               <Grid item xs={12} sm={12}>
                 <Button
                   variant="contained"
@@ -99,8 +110,11 @@ export default function Home() {
                   Add New Review
                 </Button>
               </Grid>
+
             </Grid>
+
           </form>
+
           <Box
             sx={{
               pt: 2,
@@ -109,11 +123,13 @@ export default function Home() {
           >
             <Button
               variant="contained"
+              onClick={loadAllReviews}
             >
               Load All Current Reviews
             </Button>
           </Box>
-          {MOCK_ADAPTATION_RATING.map((adaptation, index) => {
+
+          {reviews.map((adaptation, index) => {
             return <ReviewCard
               key={index}
               rating={adaptation.rating}
