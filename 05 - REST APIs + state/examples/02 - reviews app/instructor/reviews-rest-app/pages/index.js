@@ -54,6 +54,30 @@ export default function Home() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // Again, normally I'd separate out API functions, but c'est la
+    fetch(`${API_BASE_URL}/reviews`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        // I only need to use key: value syntax if my variable name differs from API datafield
+        title,
+        comment: comments,  // API datafield: my variable name
+        rating
+      })
+    }).then((response) => {
+      return response.json()
+    }).then((newReview) => {
+      // The API response body is giving me an object of what I just posted
+      // (prevents us double-hitting the API -> GET right after we POST);
+      // -> so I want to add what I just made to my stateful array and re-render.
+
+      // Remember, stateful variables are immutable, so I need to reconstruct the entire
+      // array and then overwrite the value.
+      setReviews([newReview, ...reviews]) // new thing first so it shows at the top of the list.
+    })
+
     console.log('submitted:')
     console.log(`title: ${title}, comments: ${comments}, rating: ${rating}`)
   }
