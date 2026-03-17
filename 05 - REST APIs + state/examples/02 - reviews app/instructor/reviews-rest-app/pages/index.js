@@ -51,6 +51,7 @@ export default function Home() {
   }
 
   const handleSubmit = (event) => {
+
     event.preventDefault();
 
     addReview({ 
@@ -61,8 +62,14 @@ export default function Home() {
       setReviews([newReview, ...reviews]) // new thing first so it shows at the top of the list.
     })
 
-    console.log('submitted:')
-    console.log(`title: ${title}, comments: ${comments}, rating: ${rating}`)
+    resetForm();
+
+  }
+
+  const resetForm = () => {
+    setTitle("");
+    setComments("");
+    setRating(0);
   }
 
   return (
