@@ -1,20 +1,14 @@
 // React hooks
 import { useState } from 'react';
 
-// API functions
-import { getReviews } from './api/reviews';
-
 // nextjs components
 import Head from 'next/head'
 
-
-// MUI components
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-
+// MUI components - layout
 import Container from '@mui/material/Container';
 
+// MUI components - physical (header)
+import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
@@ -26,16 +20,6 @@ import ReviewForm from './components/ReviewForm'
 export default function Home() {
 
   const [reviews, setReviews] = useState([])
-
-  const loadAllReviews = () => {
-    // I'm demonstrating 'bad practice' in the interest of concision;
-    // ideally, API functions would be in a separate layer from rendering.
-    getReviews()
-      .then((data) => {
-        setReviews(data)
-    });
-  }
-
 
   return (
     <div>
@@ -65,20 +49,6 @@ export default function Home() {
             reviews={reviews}
             onReviewsChange={setReviews}
           />
-
-          <Box
-            sx={{
-              pt: 2,
-              pb: 2,
-            }}
-          >
-            <Button
-              variant="contained"
-              onClick={loadAllReviews}
-            >
-              Load All Current Reviews
-            </Button>
-          </Box>
 
           {reviews.map((adaptation, index) => {
             return <ReviewCard
