@@ -75,8 +75,8 @@ export default function ReviewForm({ reviews, onReviewsChange }) {
 		    onSubmit={handleSubmit}
 		  >
 
-		    <Grid container spacing={3}>
-		      <Grid item xs={12} sm={12}>
+		    <Grid container spacing={3} sx={{ mt: 5, mb: 10 }}>
+		      <Grid item sm={12} md={12}>
 		        <TextField
 		          id="title"
 		          name="title"
@@ -88,7 +88,7 @@ export default function ReviewForm({ reviews, onReviewsChange }) {
 		        />
 		      </Grid>
 
-		      <Grid item xs={12} sm={12}>
+		      <Grid item sm={12} md={12}>
 		        <TextField
 		          id="review-comments"
 		          name="review-comments"
@@ -100,7 +100,7 @@ export default function ReviewForm({ reviews, onReviewsChange }) {
 		        />
 		      </Grid>
 
-		      <Grid item xs={12} sm={12}>
+		      <Grid item sm={12} md={12}>
 		        <FormControl>
 		          <FormLabel id="adaptation-rating">Rating</FormLabel>
 		          <RadioGroup
@@ -124,7 +124,7 @@ export default function ReviewForm({ reviews, onReviewsChange }) {
 		       </FormControl>
 		      </Grid>
 
-		      <Grid item xs={12} sm={3}>
+		      <Grid item sm={12} md={3}>
 		        <Button
 		          variant="contained"
 		          type="submit"
@@ -134,7 +134,7 @@ export default function ReviewForm({ reviews, onReviewsChange }) {
 		      </Grid>
 
 		      {/* I wanna restyle / reorganise things visually a bit, starting with this button */}
-		      <Grid item xs={12} sm={4}>
+		      <Grid item sm={12} md={4}>
 			      <Button
 			        variant="outlined"
 			        onClick={loadAllReviews}
