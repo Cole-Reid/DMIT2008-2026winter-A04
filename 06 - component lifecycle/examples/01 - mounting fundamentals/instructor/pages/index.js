@@ -1,5 +1,10 @@
+// hooks
 import {useState} from 'react'
 
+// API functions
+import { getRandomQuote } from './api/quotes';
+
+// nextjs/MUI components
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
@@ -14,25 +19,18 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
 export default function Home() {
-  const RANDOM_QUOTE_URL = 'https://api.quotable.io/random'
   const [quoteData, setQuoteData] = useState({
     quote: "Quote here.",
     author: "Author here"
   })
 
   const handleClick = () => {
-    fetch(RANDOM_QUOTE_URL)
-      .then((response)=> {
-        return response.json()
-      }).then((data)=> {
+    getRandomQuote().then((data)=> {
         setQuoteData({
-          quote: data.content,
+          quote: data.quote,
           author: data.author
         })
       })
-
-
-    
   }
 
   return (

@@ -32,7 +32,7 @@ export { getRandomQuote }
 4. Import the function `getRandomQuote` to the `pages/index.js` page and use it in the `handleClick` function. The component should now look like this.
 ```js
 // ... other imports above.
-import { getRandomQuote } from '../utils/api/quotes.js'  
+import { getRandomQuote } from './api/quotes.js'  
 
 export default function Home() {
   const [quoteData, setQuoteData] = useState({
@@ -43,7 +43,7 @@ export default function Home() {
   const handleClick = () => {
     getRandomQuote().then((data)=> {
         setQuoteData({
-          quote: data.content,
+          quote: data.quote,
           author: data.author
         })
       })
