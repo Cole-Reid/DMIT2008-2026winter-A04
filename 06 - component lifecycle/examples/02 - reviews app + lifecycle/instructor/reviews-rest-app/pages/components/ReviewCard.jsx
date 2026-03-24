@@ -9,7 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 
-export default function ReviewCard({ rating, title, comment }) {
+export default function ReviewCard({ ratingId, rating, title, comment }) {
 
   const getRatingColour = (rating) => {
 
@@ -34,6 +34,10 @@ export default function ReviewCard({ rating, title, comment }) {
 
     return colour.display
   }
+
+  const deleteRating = (ratingId) => {
+    console.log(`I wanna delete Review @ ID: ${ratingId}`)
+  }
   
   return (
     <Card sx={{ mt: 3 }}>
@@ -45,7 +49,7 @@ export default function ReviewCard({ rating, title, comment }) {
         }
         
         action={
-          <IconButton>
+          <IconButton onClick={() => {deleteRating(ratingId)}}>
             <DeleteIcon />
           </IconButton>
         }
