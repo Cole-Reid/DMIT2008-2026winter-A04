@@ -54,10 +54,7 @@ export default function Home() {
           {reviews.map((adaptation, index) => {
             return <ReviewCard
               key={index}
-              ratingId={adaptation.id}
-              rating={adaptation.rating}
-              title={adaptation.title}
-              comment={adaptation.comment}
+              review={adaptation}
               reviews={reviews}
               onReviewsChange={setReviews}
             />
