@@ -18,6 +18,7 @@ import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
+
 export default function Home() {
 
 
@@ -44,6 +45,8 @@ export default function Home() {
         })
       })
   }
+
+  //loadNewQuote();
 
   useEffect(
     // param 1: the callback that should fire,
