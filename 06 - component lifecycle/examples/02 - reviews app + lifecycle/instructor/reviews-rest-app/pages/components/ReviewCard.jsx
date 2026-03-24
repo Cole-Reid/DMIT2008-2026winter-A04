@@ -9,7 +9,14 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 
-export default function ReviewCard({ ratingId, rating, title, comment }) {
+export default function ReviewCard({
+  ratingId,
+  rating,
+  title,
+  comment,
+  reviews,
+  onReviewsChange
+}) {
 
   const getRatingColour = (rating) => {
 
@@ -36,7 +43,15 @@ export default function ReviewCard({ ratingId, rating, title, comment }) {
   }
 
   const deleteRating = (ratingId) => {
-    console.log(`I wanna delete Review @ ID: ${ratingId}`)
+    // remember, Array.filter() returns a new array! This is handy for us, because
+    // state variables are immutable, so we always need to fully reconstruct what we
+    // pass to the setter.
+    let filteredReviews = reviews.filter(
+      (review) => {
+        return ratingId !== review.id
+      }
+    )
+    onReviewsChange(filteredReviews)
   }
   
   return (
