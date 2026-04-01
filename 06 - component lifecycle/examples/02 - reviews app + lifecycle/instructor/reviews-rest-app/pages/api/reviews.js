@@ -42,3 +42,15 @@ export const addReview = ({ title, comment, rating }) => {
     return Promise.resolve(data)
   })
 }
+
+
+export const deleteReview = (reviewId) => {
+  return fetch(`${BASE_URL}/reviews/${reviewId}/`, {
+    method: "DELETE"
+  }).then((response)=> {
+    return response.json()
+  }).then((data)=> {
+    console.log("evidence of bad movie taste DELETED")
+    return Promise.resolve(data)
+  });
+}

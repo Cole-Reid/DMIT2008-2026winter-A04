@@ -1,3 +1,7 @@
+// api functions
+import { deleteReview } from '../api/reviews';
+
+// mui components
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -35,16 +39,36 @@ export default function ReviewCard({ review, reviews, onReviewsChange }) {
     return colour.display
   }
 
-  const deleteRating = (reviewId) => {
+  const deleteRating = (reviewToDelete) => {
+
     // remember, Array.filter() returns a new array! This is handy for us, because
     // state variables are immutable, so we always need to fully reconstruct what we
     // pass to the setter.
+
+    // this is just constructing data so far; we're not writing anything to the setter
     let filteredReviews = reviews.filter(
       (review) => {
-        return reviewId !== review.id
+        return reviewToDelete.id !== review.id
       }
     )
-    onReviewsChange(filteredReviews)
+    
+    // Instead, what I can do for much nicer safety is pass the whole review obj
+    // to deleteRating so that if the API delete fails, I can reinclude it in the array.
+    // When we were just passing the ID, there was no nice/clean way to get it back.--
+    try {
+      deleteReview(reviewToDelete.id);   // this is where I expect things to fail
+      onReviewsChange(filteredReviews);  // if they don't, then change state
+    } catch (e) {
+      // I don't technically need to make this change here, since in the prev. version,
+      // *if* the API function failed, the setter wouldn't change review contents anyway.
+      // But, if we had more complex logic etc., I want to demo some example of 'readding'
+      // the thing we failed to delete.
+      onReviewsChange([...filteredReviews, reviewToDelete]) // readd the review that failed to API-delete
+
+      const msg = `Error deleting Review ${reviewToDelete.id}: ${e.message} `
+      console.log(msg)
+      alert(msg)
+    }
   }
   
   return (
@@ -57,7 +81,7 @@ export default function ReviewCard({ review, reviews, onReviewsChange }) {
         }
         
         action={
-          <IconButton onClick={() => {deleteRating(review.id)}}>
+          <IconButton onClick={() => {deleteRating(review)}}>
             <DeleteIcon />
           </IconButton>
         }
