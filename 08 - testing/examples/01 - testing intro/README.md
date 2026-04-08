@@ -5,7 +5,7 @@
 Automated testing is something that is very common and becomes very important as you 
 
 ## Steps
-1. Let's install Jest so that we can test our application [docs here](https://nextjs.org/docs/testing#jest-and-react-testing-library).
+1. Let's install Jest so that we can test our application [docs here](https://nextjs.org/docs/app/guides/testing/jest).
 - install the required packages
 ```
 npm install --save-dev jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom
