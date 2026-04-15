@@ -40,7 +40,7 @@ export default function Home() {
   const changeQuote = () => {
     getRandomQuote().then((data)=> {
         setQuoteData({
-          quote: data.content,
+          quote: data.quote,
           author: data.author
         })
       })
